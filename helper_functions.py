@@ -68,3 +68,16 @@ def plot_auc(y_test, y_pred):
     plt.xlabel("False Positive Rate")
     plt.ylabel("True Positive Rate")
     plt.show()
+    
+def normalise(data,maxi='none',mini='none'):
+    feature_length=data.shape[1]
+    normalised_data=np.zeros([len(data),1])
+    for i in range (0,feature_length+1):
+        print(i)
+        maximum=np.amax(data[:,i-1:i], axis=0)
+        minimum=np.amin(data[:,i-1:i],axis=0)
+        feature=data[:,i-1:i]
+        normalised_feature=(feature-minimum)/(maximum-minimum)
+#        normalised_feature=np.reshape(normalised_feature,(len(normalised_feature),1))
+        normalised_data=np.concatenate((normalised_data,normalised_feature), axis=1)
+    return normalised_data[:,1:]
